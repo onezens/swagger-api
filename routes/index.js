@@ -7,9 +7,14 @@ const router = express.Router();
 const apiJson = require('../api.json');
 
 module.exports = function(app){
-    app.get('/', function(req,  res){
-        //res.redirect('/api');
+    app.get('/',function(req,  res){
         res.render('api');
+        //if(req.session.user){
+        //    res.render('api');
+        //}else{
+        //    res.render('signin');
+        //}
+
     });
     app.use('/getApiURL', function(req, res){
         res.setHeader('Content-Type', 'application/json');
