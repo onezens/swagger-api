@@ -9,11 +9,15 @@ const session = require('express-session');
 const mysql = require('mysql');
 const pkg = require('./package.json');
 const path = require('path');
+const route = require('./routes');
 
 const app = express();
+//设置模板引擎
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 //设置静态文件
-app.use('/src',express.static(path.join(__dirname, 'public')));
+app.use('/src',express.static(path.join(__dirname, 'src')));
 app.use('/api',express.static(path.join(__dirname, 'api')));
 
 //设置session中间件
@@ -26,7 +30,24 @@ app.use(session({
 }));
 
 //使用flash中间件
-//app.use(flash());
+app.use(flash());
+
+//全部变量
+app.locals.api = {
+    title: pkg.name,
+    description: pkg.description
+}
+
+// 需要的变量
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user;
+    res.locals.apiURL = '/src/api.json';
+    res.locals.success = req.flash('success').toString();
+    res.locals.error = req.flash('error').toString();
+    next();
+});
+//设置路由
+route(app);
 
 app.listen(config.port, function(){
     console.log(pkg.name + ' start success, listen on port ' + config.port);
