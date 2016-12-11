@@ -6,10 +6,10 @@ const express = require('express');
 const flash = require('connect-flash');
 const config = require('config-lite');
 const session = require('express-session');
-const mysql = require('mysql');
 const pkg = require('./package.json');
 const path = require('path');
 const route = require('./routes');
+const mysql = require('./lib/mysql.js');
 
 const app = express();
 //设置模板引擎
@@ -32,6 +32,12 @@ app.use(session({
 //使用flash中间件
 app.use(flash());
 
+// 处理表单及文件上传的中间件
+app.use(require('express-formidable')({
+    //uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
+    keepExtensions: true// 保留后缀
+}));
+
 //全部变量
 app.locals.api = {
     title: pkg.name,
@@ -51,4 +57,5 @@ route(app);
 
 app.listen(config.port, function(){
     console.log(pkg.name + ' start success, listen on port ' + config.port);
+    mysql.initDataBase();
 });
