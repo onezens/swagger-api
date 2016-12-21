@@ -40,14 +40,16 @@ router.post('/', checkNotLogin, function(req, res, next){
         return res.redirect('/signup');
     }
     //加密
+    console.log(password);
     password = sha1(password);
+    console.log(password);
 
     var user = {
         name : name,
         password: password
     }
 
-    usersModel.signup(name, password, function(error,user){
+    usersModel.signup(user, function(error,user){
         if (error){
             console.log(error.message.code);
             // 用户名被占用则跳回注册页，而不是错误页

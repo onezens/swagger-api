@@ -11,12 +11,16 @@ module.exports = function(app){
         if(req.session.user){
             res.render('api');
         }else{
-            res.render('signin');
+            res.redirect('/signin');
         }
     });
     app.use('/getApiURL', function(req, res){
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(apiJson));
+        if (req.session.user){
+            res.end(JSON.stringify(apiJson));
+        }else{
+            res.end(JSON.stringify({}));
+        }
     });
 
     app.use('/signin', require('./signin'));

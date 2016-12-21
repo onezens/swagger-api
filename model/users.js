@@ -24,15 +24,17 @@ function signin(name, cb) {
             cb(err);
             return;
         }
-        console.log(rows);
-        console.log(fields);
         var result = rows[0];
-        var user = {
-            name: result.name,
-            password: result.password,
-            isAllow: result.isAllow
+        if(!result) {
+            cb(null, null);
+        }else{
+            var user = {
+                name: result.name,
+                password: result.password,
+                isAllow: result.isAllow
+            }
+            cb(null, user);
         }
-        cb(null, user);
     });
 }
 
