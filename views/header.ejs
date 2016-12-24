@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= api.title %></title>
+    <link rel="icon" type="image/png" href="/src/swagger/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/src/swagger/images/favicon-16x16.png" sizes="16x16" />
+    <link href='/src/css/style.css' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+    <!--<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>-->
+    <!--<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>-->
+</head>
+
+<body>
+<div id='header'>
+    <div class="swagger-ui-wrap">
+        <a id="logo" href="http://api.onezen.cc">
+            <img class="logo__img" alt="swagger" height="30" width="30" src="/src/swagger/images/logo_small.png" />
+            <span class="logo__title">swagger</span>
+        </a>
+        <div class="sign-operation">
+            <a href="/signin">登录</a>
+            <a href="/signup">注册</a>
+        </div>
+    </div>
+
+</div>
+<%- include('components/notification') %>
