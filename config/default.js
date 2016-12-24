@@ -9,6 +9,7 @@ module.exports = {
         key: 'swagger-api',
         maxAge: 2592000000
     },
+    confirmSwitch: false,
     mongodb: 'mongodb://localhost:27017/myblog',
     mysql: {
         host: 'localhost',
