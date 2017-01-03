@@ -7,8 +7,8 @@ const sha1 = require('sha1');
 const config = require('config-lite');
 
 const router = express.Router();
-const usersModel = require('../model/users');
-const checkNotLogin = require('../middlewares/check.js').checkNotLogin;
+const usersModel = require('../../model/users');
+const checkNotLogin = require('../../middlewares/check.js').checkNotLogin;
 
 //GET 获取注册页
 router.get('/', checkNotLogin, function(req, res, next){

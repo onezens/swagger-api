@@ -29,12 +29,12 @@ app.use(session({
     }
 }));
 
-//使用flash中间件
+//使用flash中间件 enctype="multipart/form-data"
 app.use(flash());
 
 // 处理表单及文件上传的中间件
 app.use(require('express-formidable')({
-    //uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
+    uploadDir: path.join(__dirname, './src/img'),// 上传文件目录
     keepExtensions: true// 保留后缀
 }));
 
@@ -54,6 +54,12 @@ app.use(function (req, res, next) {
 });
 //设置路由
 route(app);
+
+// error
+app.use(function (err, req, res, next) {
+    res.statusCode = 502;
+    res.end(err);
+});
 
 app.listen(config.port, function(){
     console.log(pkg.name + ' start success, listen on port ' + config.port);

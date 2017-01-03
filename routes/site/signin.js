@@ -6,8 +6,8 @@ const sha1 = require('sha1');
 const config = require('config-lite');
 
 const router = express.Router();
-const checkNotLogin = require('../middlewares/check.js').checkNotLogin;
-const usersModel = require('../model/users');
+const checkNotLogin = require('../../middlewares/check.js').checkNotLogin;
+const usersModel = require('../../model/users');
 
 //GET 获取登录页
 router.get('/', checkNotLogin, function(req, res, next){
@@ -16,7 +16,11 @@ router.get('/', checkNotLogin, function(req, res, next){
 
 //POST 提交登录信息
 router.post('/', checkNotLogin, function(req, res, next){
-
+    console.log(req.body);
+    if(!req.fields){
+        req.flash('error', 'params error!');
+        return res.redirect('/signin');
+    }
     var name = req.fields.name.trim();
     var password = req.fields.password.trim();
     usersModel.signin(name, function(error, user){

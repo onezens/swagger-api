@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const router  = express.Router();
-const checkLogin = require('../middlewares/check.js').checkLogin;
+const checkLogin = require('../../middlewares/check.js').checkLogin;
 
 //GET 注销
 router.get('/', checkLogin, function(req, res, next){

@@ -4,7 +4,10 @@
 
 const express = require('express');
 const router = express.Router();
+const config = require('config-lite');
 const apiJson = require('../api.json');
+apiJson.host = config.host;
+apiJson.schemes[0] = config.scheme;
 
 module.exports = function(app){
     app.get('/',function(req,  res){
@@ -23,10 +26,12 @@ module.exports = function(app){
         }
     });
 
-    app.use('/signin', require('./signin'));
-    app.use('/signup', require('./signup'));
-    app.use('/signout', require('./signout'));
+    app.use('/v1', require('./api/index'));
+    app.use('/signin', require('./site/signin'));
+    app.use('/signup', require('./site/signup'));
+    app.use('/signout', require('./site/signout'));
     app.use(function (req, res) {
+        res.statusCode = 404;
         if (!res.headersSent) {
             res.render('404');
         }
